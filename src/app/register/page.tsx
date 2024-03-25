@@ -13,12 +13,10 @@ import Link from "next/link";
 const RegisterPage = () => {
   return (
     <Container
-      sx={{
-        padding: "50px",
-      }}
     >
       <Stack
         sx={{
+          height:'100vh',
           justifyContent: "center",
           alignItems: "center",
         }}
@@ -107,7 +105,7 @@ const RegisterPage = () => {
                 Register
               </Button>
               <Typography component="p" fontWeight={600}>
-                do you already have an account? <Link href="/login">Login</Link>
+                Do you already have an account? <Link href="/login">Login</Link>
               </Typography>
             </form>
           </Box>
