@@ -12,6 +12,7 @@ import Image from "next/image";
 import assets from "@/assets";
 import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { modifyPayload } from "@/utils/modifyPayload";
 
 
 interface patientData {
@@ -33,7 +34,11 @@ const RegisterPage = () => {
     watch,
     formState: { errors },
   } = useForm<patientRegisterFormData>();
-  const onSubmit: SubmitHandler<patientRegisterFormData> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<patientRegisterFormData> = (values) => {
+    const data = modifyPayload(values)
+    console.log(data);
+  }
+  
   return (
     <Container>
       <Stack
