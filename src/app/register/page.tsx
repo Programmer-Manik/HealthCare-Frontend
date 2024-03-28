@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import {
   Box,
   Button,
@@ -13,18 +13,18 @@ import assets from "@/assets";
 import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { modifyPayload } from "@/utils/modifyPayload";
-
+import RegisterPatient from "@/services/actions/registerPatient";
 
 interface patientData {
-  name:string;
-  email:string;
-  contactNumber:string;
-  address:string;
+  name: string;
+  email: string;
+  contactNumber: string;
+  address: string;
 }
 
 interface patientRegisterFormData {
-  password:string;
-  patient:patientData;
+  password: string;
+  patient: patientData;
 }
 
 const RegisterPage = () => {
@@ -34,11 +34,17 @@ const RegisterPage = () => {
     watch,
     formState: { errors },
   } = useForm<patientRegisterFormData>();
-  const onSubmit: SubmitHandler<patientRegisterFormData> = (values) => {
-    const data = modifyPayload(values)
-    console.log(data);
-  }
-  
+  const onSubmit: SubmitHandler<patientRegisterFormData> = async(values) => {
+    const data = modifyPayload(values);
+    // console.log(data);
+    try {
+      const res = await RegisterPatient(data)
+    } 
+    catch (err: any) {
+      console.log(err.message)
+    }
+  };
+
   return (
     <Container>
       <Stack
@@ -78,7 +84,7 @@ const RegisterPage = () => {
               margin: "10px 0",
             }}
           >
-            <form  onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <Grid container spacing={3}>
                 <Grid item md={12}>
                   <TextField
