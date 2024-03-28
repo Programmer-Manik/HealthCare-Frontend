@@ -13,7 +13,8 @@ import assets from "@/assets";
 import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { modifyPayload } from "@/utils/modifyPayload";
-import RegisterPatient from "@/services/actions/registerPatient";
+import registerPatient from "@/services/actions/registerPatient";
+
 
 interface patientData {
   name: string;
@@ -38,7 +39,8 @@ const RegisterPage = () => {
     const data = modifyPayload(values);
     // console.log(data);
     try {
-      const res = await RegisterPatient(data)
+      const res = await registerPatient(data)
+      console.log(res)
     } 
     catch (err: any) {
       console.log(err.message)
