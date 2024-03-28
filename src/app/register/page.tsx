@@ -1,3 +1,4 @@
+"use client"
 import {
   Box,
   Button,
@@ -10,13 +11,28 @@ import {
 import Image from "next/image";
 import assets from "@/assets";
 import Link from "next/link";
+import { useForm, SubmitHandler } from "react-hook-form";
+type Inputs = {
+  name:string;
+  email:string;
+  password:string;
+  contactNumber:string;
+  address:string;
+};
+
 const RegisterPage = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Inputs>();
+  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
   return (
-    <Container
-    >
+    <Container>
       <Stack
         sx={{
-          height:'100vh',
+          height: "100vh",
           justifyContent: "center",
           alignItems: "center",
         }}
@@ -46,16 +62,19 @@ const RegisterPage = () => {
               </Typography>
             </Box>
           </Stack>
-          <Box sx={{
-            margin:'10px 0'
-          }}>
-            <form>
+          <Box
+            sx={{
+              margin: "10px 0",
+            }}
+          >
+            <form  onSubmit={handleSubmit(onSubmit)}>
               <Grid container spacing={3}>
                 <Grid item md={12}>
                   <TextField
                     label="name"
                     variant="outlined"
                     size="small"
+                    {...register("name")}
                     fullWidth={true}
                   />
                 </Grid>
@@ -65,6 +84,7 @@ const RegisterPage = () => {
                     type="email"
                     variant="outlined"
                     size="small"
+                    {...register("email")}
                     fullWidth={true}
                   />
                 </Grid>
@@ -75,6 +95,7 @@ const RegisterPage = () => {
                     variant="outlined"
                     size="small"
                     fullWidth={true}
+                    {...register("password")}
                   />
                 </Grid>
                 <Grid item md={6}>
@@ -84,6 +105,7 @@ const RegisterPage = () => {
                     variant="outlined"
                     size="small"
                     fullWidth={true}
+                    {...register("contactNumber")}
                   />
                 </Grid>
                 <Grid item md={6}>
@@ -93,6 +115,7 @@ const RegisterPage = () => {
                     variant="outlined"
                     size="small"
                     fullWidth={true}
+                    {...register("address")}
                   />
                 </Grid>
               </Grid>
@@ -101,6 +124,7 @@ const RegisterPage = () => {
                   margin: "15px 0",
                 }}
                 fullWidth={true}
+                type="submit"
               >
                 Register
               </Button>
