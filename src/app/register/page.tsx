@@ -12,13 +12,19 @@ import Image from "next/image";
 import assets from "@/assets";
 import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
-type Inputs = {
+
+
+interface patientData {
   name:string;
   email:string;
-  password:string;
   contactNumber:string;
   address:string;
-};
+}
+
+interface patientRegisterFormData {
+  password:string;
+  patient:patientData;
+}
 
 const RegisterPage = () => {
   const {
@@ -26,8 +32,8 @@ const RegisterPage = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  } = useForm<patientRegisterFormData>();
+  const onSubmit: SubmitHandler<patientRegisterFormData> = (data) => console.log(data);
   return (
     <Container>
       <Stack
@@ -74,7 +80,7 @@ const RegisterPage = () => {
                     label="name"
                     variant="outlined"
                     size="small"
-                    {...register("name")}
+                    {...register("patient.name")}
                     fullWidth={true}
                   />
                 </Grid>
@@ -84,7 +90,7 @@ const RegisterPage = () => {
                     type="email"
                     variant="outlined"
                     size="small"
-                    {...register("email")}
+                    {...register("patient.email")}
                     fullWidth={true}
                   />
                 </Grid>
@@ -105,7 +111,7 @@ const RegisterPage = () => {
                     variant="outlined"
                     size="small"
                     fullWidth={true}
-                    {...register("contactNumber")}
+                    {...register("patient.contactNumber")}
                   />
                 </Grid>
                 <Grid item md={6}>
@@ -115,7 +121,7 @@ const RegisterPage = () => {
                     variant="outlined"
                     size="small"
                     fullWidth={true}
-                    {...register("address")}
+                    {...register("patient.address")}
                   />
                 </Grid>
               </Grid>
