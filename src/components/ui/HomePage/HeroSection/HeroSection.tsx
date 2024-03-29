@@ -11,21 +11,16 @@ const HeroSection = () => {
         my: 16,
       }}
     >
-      <Box
-        sx={{
-          flex: 1,
-          position: "relative",
-        }}
-      >
+      <Box sx={{ flex: 1, position: "relative" }}>
         <Box
           sx={{
             position: "absolute",
             width: "700px",
-            top: "-90px",
-            left: "-120px",
+            left: "-90px",
+            top: "-120px",
           }}
         >
-          <Image src={assets.svgs.grid} alt="grid" />
+          <Image src={assets.svgs.grid} alt="doctor1" />
         </Box>
         <Typography variant="h2" component="h1" fontWeight={600}>
           Healthier Hearts
@@ -52,6 +47,7 @@ const HeroSection = () => {
           <Button variant="outlined">Contact us</Button>
         </Box>
       </Box>
+
       <Box
         sx={{
           p: 1,

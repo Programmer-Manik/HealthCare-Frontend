@@ -11,39 +11,54 @@ import {
 import Image from "next/image";
 import assets from "@/assets";
 import Link from "next/link";
-import { useForm, SubmitHandler } from "react-hook-form";
 import { modifyPayload } from "@/utils/modifyPayload";
-import registerPatient from "@/services/actions/registerPatient";
+import { registerPatient } from "@/services/actions/registerPatient";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { userLogin } from "@/services/actions/userLogin";
+import { storeUserInfo } from "@/services/auth.services";
+import { SubmitHandler, useForm } from "react-hook-form";
 
-
-interface patientData {
+interface IPatientData {
   name: string;
   email: string;
   contactNumber: string;
   address: string;
 }
 
-interface patientRegisterFormData {
+interface IPatientRegisterFormData {
   password: string;
-  patient: patientData;
+  patient: IPatientData;
 }
 
 const RegisterPage = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<patientRegisterFormData>();
-  const onSubmit: SubmitHandler<patientRegisterFormData> = async(values) => {
+  } = useForm<IPatientRegisterFormData>();
+
+  const onSubmit: SubmitHandler<IPatientRegisterFormData> = async (values) => {
     const data = modifyPayload(values);
     // console.log(data);
     try {
-      const res = await registerPatient(data)
-      console.log(res)
-    } 
-    catch (err: any) {
-      console.log(err.message)
+      const res = await registerPatient(data);
+      // console.log(res);
+      if (res?.data?.id) {
+        toast.success(res?.message);
+        const result = await userLogin({
+          password: values.password,
+          email: values.patient.email,
+        });
+        if (result?.data?.accessToken) {
+          storeUserInfo({ accessToken: result?.data?.accessToken });
+          router.push("/");
+        }
+      }
+    } catch (err: any) {
+      console.error(err.message);
     }
   };
 
@@ -81,20 +96,17 @@ const RegisterPage = () => {
               </Typography>
             </Box>
           </Stack>
-          <Box
-            sx={{
-              margin: "10px 0",
-            }}
-          >
+
+          <Box>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <Grid container spacing={3}>
+              <Grid container spacing={2} my={1}>
                 <Grid item md={12}>
                   <TextField
-                    label="name"
+                    label="Name"
                     variant="outlined"
                     size="small"
-                    {...register("patient.name")}
                     fullWidth={true}
+                    {...register("patient.name")}
                   />
                 </Grid>
                 <Grid item md={6}>
@@ -103,8 +115,8 @@ const RegisterPage = () => {
                     type="email"
                     variant="outlined"
                     size="small"
-                    {...register("patient.email")}
                     fullWidth={true}
+                    {...register("patient.email")}
                   />
                 </Grid>
                 <Grid item md={6}>
@@ -140,14 +152,14 @@ const RegisterPage = () => {
               </Grid>
               <Button
                 sx={{
-                  margin: "15px 0",
+                  margin: "10px 0px",
                 }}
                 fullWidth={true}
                 type="submit"
               >
                 Register
               </Button>
-              <Typography component="p" fontWeight={600}>
+              <Typography component="p" fontWeight={300}>
                 Do you already have an account? <Link href="/login">Login</Link>
               </Typography>
             </form>

@@ -1,5 +1,5 @@
 {
-  "name": "healthcare-frontend",
+  "name": "ph-healthcare-frontend",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,13 +12,15 @@
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
-    "@mui/icons-material": "^5.15.14",
+    "@mui/icons-material": "^5.15.13",
     "@mui/material": "^5.15.13",
     "@mui/material-nextjs": "^5.15.11",
+    "jwt-decode": "^4.0.0",
     "next": "14.0.3",
     "react": "^18",
     "react-dom": "^18",
-    "react-hook-form": "^7.51.1"
+    "react-hook-form": "^7.51.1",
+    "sonner": "^1.4.41"
   },
   "devDependencies": {
     "@types/node": "^20",

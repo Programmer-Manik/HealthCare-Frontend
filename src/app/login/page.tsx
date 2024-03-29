@@ -1,3 +1,4 @@
+"use client";
 import {
   Box,
   Button,
@@ -10,13 +11,46 @@ import {
 import Image from "next/image";
 import assets from "@/assets";
 import Link from "next/link";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { userLogin } from "@/services/actions/userLogin";
+import { storeUserInfo } from "@/services/auth.services";
+import { toast } from "sonner";
+import { Router } from "next/router";
+import { useRouter } from "next/navigation";
+
+export type FormValues = {
+  email: string;
+  password: string;
+};
+
 const LoginPage = () => {
+  const router = useRouter();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<FormValues>();
+
+  const onSubmit: SubmitHandler<FormValues> = async (values) => {
+    // console.log(values);
+    try {
+      const res = await userLogin(values);
+      if (res?.data?.accessToken) {
+        toast.success(res?.message);
+        storeUserInfo({ accessToken: res?.data?.accessToken });
+        router.push("/");
+      }
+    } catch (err: any) {
+      console.error(err.message);
+    }
+  };
+
   return (
-    <Container
-    >
+    <Container>
       <Stack
         sx={{
-          height:'100vh',
+          height: "100vh",
           justifyContent: "center",
           alignItems: "center",
         }}
@@ -42,22 +76,21 @@ const LoginPage = () => {
             </Box>
             <Box>
               <Typography variant="h6" fontWeight={600}>
-                Login Healthcare
+                Login PH HealthCare
               </Typography>
             </Box>
           </Stack>
-          <Box sx={{
-            margin:'10px 0'
-          }}>
-            <form>
-              <Grid container spacing={3}>
-              <Grid item md={6}>
+          <Box>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Grid container spacing={2} my={1}>
+                <Grid item md={6}>
                   <TextField
                     label="Email"
                     type="email"
                     variant="outlined"
                     size="small"
                     fullWidth={true}
+                    {...register("email")}
                   />
                 </Grid>
                 <Grid item md={6}>
@@ -67,22 +100,27 @@ const LoginPage = () => {
                     variant="outlined"
                     size="small"
                     fullWidth={true}
+                    {...register("password")}
                   />
                 </Grid>
               </Grid>
-              <Typography mb={1} pt={1} textAlign="end" component="p" fontWeight={600}>
-                Forgot password?
+
+              <Typography mb={1} textAlign="end" component="p" fontWeight={300}>
+                Forgot Password?
               </Typography>
+
               <Button
                 sx={{
-                  margin: "15px 0",
+                  margin: "10px 0px",
                 }}
                 fullWidth={true}
+                type="submit"
               >
                 Login
               </Button>
-              <Typography component="p" fontWeight={600}>
-                Don&apos;t have an account <Link href="/register">Create an Account</Link>
+              <Typography component="p" fontWeight={300}>
+                Don&apos;t have an account?{" "}
+                <Link href="/register">Create an account</Link>
               </Typography>
             </form>
           </Box>

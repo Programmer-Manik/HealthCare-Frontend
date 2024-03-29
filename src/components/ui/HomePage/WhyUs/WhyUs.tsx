@@ -1,6 +1,6 @@
 import { Box, Container, Grid, Typography } from "@mui/material";
 import assets from "@/assets";
-import chooseImg from "@/assets/choose-us.png";
+import chooseUsImg from "@/assets/choose-us.png";
 import Image from "next/image";
 
 const servicesData = [
@@ -11,19 +11,19 @@ const servicesData = [
       "Duas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui offici",
   },
   {
-    imageSrc: assets.svgs.brain,
+    imageSrc: assets.svgs.care,
     title: "Best Quality Pregnancy Care",
     description:
       "Duas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui offici",
   },
   {
-    imageSrc: assets.svgs.dentist,
+    imageSrc: assets.svgs.equipment,
     title: "Complete Medical Equipments",
     description:
       "Duas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui offici",
   },
   {
-    imageSrc: assets.svgs.calender,
+    imageSrc: assets.svgs.call,
     title: "Dedicated Emergency Care",
     description:
       "Duas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui offici",
@@ -47,13 +47,13 @@ const WhyUs = () => {
             Why Choose Us
           </Typography>
         </Box>
-        <Grid container spacing={2} my={10}>
+        <Grid container spacing={2} my={5} alignItems="center">
           <Grid item md={6}>
             <Box
               sx={{
                 display: "flex",
                 gap: "15px",
-                backgroundColor: "rgba(245, 245, 245, 1)",
+                backgroundColor: "rgba(245, 245, 245,1)",
                 padding: "15px",
                 alignItems: "center",
                 borderRadius: "10px 10px 100px 10px",
@@ -62,21 +62,22 @@ const WhyUs = () => {
               <Box
                 sx={{
                   backgroundColor: "#fff",
-                  padding: "10px",
+                  padding: "15px",
                   borderRadius: "10px",
                 }}
               >
                 <Image src={servicesData[0].imageSrc} width={50} alt="award" />
               </Box>
               <Box>
-                <Typography variant="h6" component="h6" fontWeight={600}>
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="h1"
+                  fontWeight={600}
+                >
                   {servicesData[0].title}
                 </Typography>
-                <Typography
-                  variant="body2"
-                  color="primary.body1"
-                  fontWeight={400}
-                >
+                <Typography variant="body2" color="text.secondary">
                   {servicesData[0].description}
                 </Typography>
               </Box>
@@ -85,7 +86,7 @@ const WhyUs = () => {
               sx={{
                 display: "flex",
                 gap: "15px",
-                backgroundColor: "rgba(245, 245, 245, 1)",
+                backgroundColor: "rgba(245, 245, 245,1)",
                 padding: "15px",
                 alignItems: "center",
                 borderRadius: "10px 100px 10px 10px",
@@ -105,11 +106,7 @@ const WhyUs = () => {
                 <Typography variant="h6" component="h6" fontWeight={600}>
                   {servicesData[1].title}
                 </Typography>
-                <Typography
-                  variant="body2"
-                  color="primary.body1"
-                  fontWeight={400}
-                >
+                <Typography variant="body2" color="text.secondary">
                   {servicesData[1].description}
                 </Typography>
               </Box>
@@ -118,7 +115,7 @@ const WhyUs = () => {
               sx={{
                 display: "flex",
                 gap: "15px",
-                backgroundColor: "rgba(245, 245, 245, 1)",
+                backgroundColor: "rgba(245, 245, 245,1)",
                 padding: "15px",
                 alignItems: "center",
                 borderRadius: "10px 10px 100px 10px",
@@ -137,11 +134,7 @@ const WhyUs = () => {
                 <Typography variant="h6" component="h6" fontWeight={600}>
                   {servicesData[2].title}
                 </Typography>
-                <Typography
-                  variant="body2"
-                  color="primary.body1"
-                  fontWeight={400}
-                >
+                <Typography variant="body2" color="text.secondary">
                   {servicesData[2].description}
                 </Typography>
               </Box>
@@ -150,7 +143,7 @@ const WhyUs = () => {
               sx={{
                 display: "flex",
                 gap: "15px",
-                backgroundColor: "rgba(245, 245, 245, 1)",
+                backgroundColor: "rgba(245, 245, 245,1)",
                 padding: "15px",
                 alignItems: "center",
                 borderRadius: "10px 100px 10px 10px",
@@ -170,26 +163,21 @@ const WhyUs = () => {
                 <Typography variant="h6" component="h6" fontWeight={600}>
                   {servicesData[3].title}
                 </Typography>
-                <Typography
-                  variant="body2"
-                  color="primary.body1"
-                  fontWeight={400}
-                >
+                <Typography variant="body2" color="text.secondary">
                   {servicesData[3].description}
                 </Typography>
               </Box>
             </Box>
           </Grid>
-          <Grid item md={6}
-          sx={{
-            display:"flex"
-          }}
-          >
-            <Box sx={{
-               margin:'0 auto',
-               justifyContent:'center'
-            }}>
-              <Image src={chooseImg} width={400} alt="choose img" />
+          <Grid item md={6}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Image src={chooseUsImg} width={400} alt="choose us" />
             </Box>
           </Grid>
         </Grid>
