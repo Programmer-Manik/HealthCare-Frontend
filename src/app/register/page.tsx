@@ -5,7 +5,6 @@ import {
   Container,
   Grid,
   Stack,
-  TextField,
   Typography,
 } from "@mui/material";
 import Image from "next/image";
@@ -20,7 +19,30 @@ import { userLogin } from "@/services/actions/userLogin";
 import { storeUserInfo } from "@/services/auth.services";
 import MHForm from "@/components/Forms/MHForm";
 import MHInput from "@/components/Forms/MHInput";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
+export const patientValidationSchema  = z.object({
+  name:z.string().min(1,"please enter your name!"),
+  email: z.string().email('Please enter valid a email address!'),
+  contactNumber:z.string().regex(/^\d{11}$/,"please provide a valid phone number"),
+  address:z.string().min(1,"please enter your full address!"),
+})
+
+export const ValidationSchema = z.object({
+  password:z.string().min(6,'Must be at least 6 characters'),
+  patient:patientValidationSchema,
+})
+
+export const defaultValues = {
+  password:'',
+  patient:{
+    name:'',
+    email:'',
+    contactNumber:'',
+    address:'',
+  }
+}
 
 const RegisterPage = () => {
   const router = useRouter();
@@ -85,14 +107,15 @@ const RegisterPage = () => {
           <Box>
             <MHForm
               onSubmit={handleRegister}
+              resolver={zodResolver(ValidationSchema)}
+              defaultValues={defaultValues}
             >
               <Grid container spacing={2} my={1}>
                 <Grid item md={12}>
-                  <MHInput required={true} label="Name" fullWidth={true} name="patient.name" />
+                  <MHInput  label="Name" fullWidth={true} name="patient.name" />
                 </Grid>
                 <Grid item md={6}>
                   <MHInput
-                  required={true}
                     label="Email"
                     type="email"
                     fullWidth={true}
@@ -101,7 +124,6 @@ const RegisterPage = () => {
                 </Grid>
                 <Grid item md={6}>
                   <MHInput
-                  required={true}
                     label="Password"
                     type="password"
                     fullWidth={true}
@@ -110,7 +132,6 @@ const RegisterPage = () => {
                 </Grid>
                 <Grid item md={6}>
                   <MHInput
-                  required={true}
                     label="Contact Number"
                     type="tel"
                     fullWidth={true}
@@ -119,7 +140,6 @@ const RegisterPage = () => {
                 </Grid>
                 <Grid item md={6}>
                   <MHInput
-                    required={true}
                     label="Address"
                     fullWidth={true}
                     name="patient.address"
