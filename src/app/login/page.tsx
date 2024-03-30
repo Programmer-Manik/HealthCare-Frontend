@@ -18,6 +18,7 @@ import { toast } from "sonner";
 import { Router } from "next/router";
 import { useRouter } from "next/navigation";
 import MHForm from "@/components/Forms/MHForm";
+import MHInput from "@/components/Forms/MHInput";
 
 
 const LoginPage = () => {
@@ -75,23 +76,20 @@ const LoginPage = () => {
             <MHForm onSubmit={handleLogin}>
               <Grid container spacing={2} my={1}>
                 <Grid item md={6}>
-                  <TextField
+                  <MHInput
+                  name="email"
                     label="Email"
                     type="email"
-                    variant="outlined"
-                    size="small"
                     fullWidth={true}
-                    {...register("email")}
                   />
                 </Grid>
                 <Grid item md={6}>
-                  <TextField
+                  <MHInput
+                   name="password"
                     label="Password"
                     type="password"
-                    variant="outlined"
-                    size="small"
                     fullWidth={true}
-                    {...register("password")}
+                 
                   />
                 </Grid>
               </Grid>
