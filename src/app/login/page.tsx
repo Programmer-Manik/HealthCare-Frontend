@@ -19,7 +19,13 @@ import { Router } from "next/router";
 import { useRouter } from "next/navigation";
 import MHForm from "@/components/Forms/MHForm";
 import MHInput from "@/components/Forms/MHInput";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
+export const ValidationSchema  = z.object({
+  email: z.string().email('Please enter valid a email address!'),
+  password:z.string().min(6,'Must be at least 6 characters')
+})
 
 const LoginPage = () => {
   const router = useRouter();
@@ -73,7 +79,10 @@ const LoginPage = () => {
             </Box>
           </Stack>
           <Box>
-            <MHForm onSubmit={handleLogin}>
+            <MHForm 
+            onSubmit={handleLogin}
+            resolver={zodResolver(ValidationSchema)}
+            >
               <Grid container spacing={2} my={1}>
                 <Grid item md={6}>
                   <MHInput
