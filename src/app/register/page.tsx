@@ -3,7 +3,7 @@ import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import assets from "@/assets";
 import Link from "next/link";
-import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
+import {  FieldValues } from "react-hook-form";
 import { modifyPayload } from "@/utils/modifyPayload";
 import { registerPatient } from "@/services/actions/registerPatient";
 import { toast } from "sonner";
@@ -14,7 +14,6 @@ import MHForm from "@/components/Forms/MHForm";
 import MHInput from "@/components/Forms/MHInput";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
 
 export const patientValidationSchema = z.object({
   name: z.string().min(1, "please enter your name!"),
@@ -42,7 +41,6 @@ export const defaultValues = {
 
 const RegisterPage = () => {
   const router = useRouter();
-  const [error, setError] = useState("");
   const handleRegister = async (values: FieldValues) => {
     const data = modifyPayload(values);
     // console.log(data);
@@ -58,8 +56,6 @@ const RegisterPage = () => {
         if (result?.data?.accessToken) {
           storeUserInfo({ accessToken: result?.data?.accessToken });
           router.push("/");
-        } else {
-          setError(res.message);
         }
       }
     } catch (err: any) {
@@ -101,21 +97,6 @@ const RegisterPage = () => {
               </Typography>
             </Box>
           </Stack>
-          {error && (
-            <Box>
-              <Typography
-                sx={{
-                  backgroundColor: "red",
-                  padding: "1px",
-                  borderRadius: "2px",
-                  color: "white",
-                  marginTop: "5px",
-                }}
-              >
-                {error}
-              </Typography>
-            </Box>
-          )}
           <Box>
             <MHForm
               onSubmit={handleRegister}
