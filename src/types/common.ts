@@ -1,4 +1,6 @@
 import { USER_ROLE } from "@/contants/role";
+import {  SvgIconTypeMap } from "@mui/material";
+import { OverridableComponent } from "@mui/material/OverridableComponent";
 import { number } from "zod";
 
 export type IMeta = {
@@ -8,3 +10,11 @@ export type IMeta = {
 }
 
 export type  UserRole = keyof typeof USER_ROLE;
+
+export interface DrawerItem {
+   title:string;
+   path:string;
+   parentPath?:string;
+   icon?:OverridableComponent<SvgIconTypeMap<{},"svg">> & {muiName:string};
+   child?:DrawerItem[];
+}
