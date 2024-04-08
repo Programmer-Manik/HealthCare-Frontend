@@ -1,8 +1,17 @@
+import MHModal from "@/components/Shared/MHModal/MHModal";
+import { Box, Button, Stack, TextField } from "@mui/material";
+
 const SpecialtiesPage = () => {
   return (
-    <div>
-      <h2>Welcome to the specialtiesPage page</h2>
-    </div>
+    <Box>
+      <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <Button>
+          Create Specialty 
+        </Button>
+        <MHModal/>
+        <TextField size="small" placeholder="Search Specialties"/> 
+      </Stack>
+    </Box>
   );
 };
 
