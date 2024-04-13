@@ -2,6 +2,7 @@ import MHFileUploader from "@/components/Forms/MHFileUploader";
 import MHForm from "@/components/Forms/MHForm";
 import MHInput from "@/components/Forms/MHInput";
 import MHModal from "@/components/Shared/MHModal/MHModal";
+import { modifyPayload } from "@/utils/modifyPayload";
 import { Button, Grid } from "@mui/material";
 import React from "react";
 import { FieldValues } from "react-hook-form";
@@ -9,8 +10,15 @@ type TProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
-const SpecialistModal = ({ open, setOpen }: TProps) => {
-  const handelFormSubmit = (values: FieldValues) => {};
+const SpecialtyModal = ({ open, setOpen }: TProps) => {
+  const handelFormSubmit = (values: FieldValues) => {
+    const data = modifyPayload(values)
+    try{
+      
+    }catch(error){
+      console.log(error)
+    }
+  };
   return (
     <MHModal open={open} setOpen={setOpen} title="Create A New Specialty">
       <MHForm onSubmit={handelFormSubmit}>
@@ -30,4 +38,4 @@ const SpecialistModal = ({ open, setOpen }: TProps) => {
   );
 };
 
-export default SpecialistModal;
+export default SpecialtyModal;
