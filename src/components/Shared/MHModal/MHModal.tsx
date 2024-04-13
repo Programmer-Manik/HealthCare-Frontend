@@ -1,14 +1,11 @@
 "use client";
 import * as React from "react";
-import Button from "@mui/material/Button";
 import { SxProps, styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import Typography from "@mui/material/Typography";
 
 type TModalProps = {
   open: boolean;
@@ -28,11 +25,11 @@ export const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 export default function MHModal({
-  open,
+  open = false,
   setOpen,
-  title,
+  title = "",
   children,
- 
+  sx
 }: TModalProps) {
   const handleClose = () => {
     setOpen(false);
@@ -44,7 +41,7 @@ export default function MHModal({
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
-        // sx={{...sx}}
+        sx={{...sx}}
       >
         <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
           {title}
@@ -62,11 +59,6 @@ export default function MHModal({
           <CloseIcon />
         </IconButton>
         <DialogContent dividers>{children}</DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleClose}>
-            Save changes
-          </Button>
-        </DialogActions>
       </BootstrapDialog>
     </React.Fragment>
   );
