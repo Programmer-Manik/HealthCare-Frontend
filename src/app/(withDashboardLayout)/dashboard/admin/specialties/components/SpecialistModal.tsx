@@ -19,7 +19,7 @@ const SpecialistModal = ({ open, setOpen }: TProps) => {
             <MHInput name="title" label="Title"/>
           </Grid>
           <Grid md={6} item>
-            <MHFileUploader/>
+            <MHFileUploader name="file" label="Upload file "/>
           </Grid>
         </Grid>
         <Button sx={{mt:1}} type="submit">
