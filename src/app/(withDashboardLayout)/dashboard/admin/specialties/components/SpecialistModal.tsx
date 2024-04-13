@@ -2,6 +2,7 @@ import MHFileUploader from "@/components/Forms/MHFileUploader";
 import MHForm from "@/components/Forms/MHForm";
 import MHInput from "@/components/Forms/MHInput";
 import MHModal from "@/components/Shared/MHModal/MHModal";
+import { useCreateSpecialtyMutation } from "@/redux/api/specialtiesApi";
 import { modifyPayload } from "@/utils/modifyPayload";
 import { Button, Grid } from "@mui/material";
 import React from "react";
@@ -11,12 +12,14 @@ type TProps = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 const SpecialtyModal = ({ open, setOpen }: TProps) => {
+  const [createSpecialty] = useCreateSpecialtyMutation();
+
   const handelFormSubmit = (values: FieldValues) => {
-    const data = modifyPayload(values)
-    try{
-      
-    }catch(error){
-      console.log(error)
+    const data = modifyPayload(values);
+    try {
+      const res = createSpecialty(data);
+    } catch (error) {
+      console.log(error);
     }
   };
   return (
@@ -24,13 +27,13 @@ const SpecialtyModal = ({ open, setOpen }: TProps) => {
       <MHForm onSubmit={handelFormSubmit}>
         <Grid container spacing={2}>
           <Grid md={6} item>
-            <MHInput name="title" label="Title"/>
+            <MHInput name="title" label="Title" />
           </Grid>
           <Grid md={6} item>
-            <MHFileUploader name="file" label="Upload file "/>
+            <MHFileUploader name="file" label="Upload file " />
           </Grid>
         </Grid>
-        <Button sx={{mt:1}} type="submit">
+        <Button sx={{ mt: 1 }} type="submit">
           Create
         </Button>
       </MHForm>
