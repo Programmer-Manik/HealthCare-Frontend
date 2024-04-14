@@ -1,22 +1,42 @@
 "use client";
-import { Box, Button, Stack, TextField } from "@mui/material";
+import { Box, Button, IconButton, Stack, TextField } from "@mui/material";
 import { useState } from "react";
 import SpecialtyModal from "./components/SpecialistModal";
 import { useGetAllSpecialtyQuery } from "@/redux/api/specialtiesApi";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import Image from "next/image";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const SpecialtiesPage = () => {
   const [isModalOpen, setISModalOpen] = useState(false);
   const { data, isLoading } = useGetAllSpecialtyQuery({});
+
+
+  const handelDelete = (id:string) => {
+    console.log(id)
+  }
+
   // console.log(data)
   const columns: GridColDef[] = [
-    { field: "title", headerName: "Title", width: 100 },
+    { field: "title", headerName: "Title", width: 300 },
     {
       field: "icon",
       headerName: "Icon",
-      width: 100,
+      width: 300,
       renderCell: ({ row }) => {
-        return console.log(row)
+        return <Box>
+          <Image src={row.icon} width={20} height={20} alt="Icon"/>
+        </Box>
+      },
+    },
+    {
+      field: "action",
+      headerName: "Action",
+      width: 400,
+      renderCell: ({ row }) => {
+        return <IconButton onClick={()=>handelDelete(row.id)} aria-label="delete">
+        <DeleteIcon />
+      </IconButton>
       },
     },
   ];
@@ -29,7 +49,7 @@ const SpecialtiesPage = () => {
         <TextField size="small" placeholder="Search Specialties" />
       </Stack>
       {!isLoading ? (
-        <Box>
+        <Box my={2}>
           <DataGrid rows={data} columns={columns} />
         </Box>
       ) : (
