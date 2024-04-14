@@ -2,41 +2,59 @@
 import { Box, Button, IconButton, Stack, TextField } from "@mui/material";
 import { useState } from "react";
 import SpecialtyModal from "./components/SpecialistModal";
-import { useGetAllSpecialtyQuery } from "@/redux/api/specialtiesApi";
+import {
+  useDeleteOneSpecialtyMutation,
+  useGetAllSpecialtyQuery,
+} from "@/redux/api/specialtiesApi";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Image from "next/image";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
+import { toast } from "sonner";
 
 const SpecialtiesPage = () => {
   const [isModalOpen, setISModalOpen] = useState(false);
   const { data, isLoading } = useGetAllSpecialtyQuery({});
+  const [deleteOneSpecialty] = useDeleteOneSpecialtyMutation();
 
-
-  const handelDelete = (id:string) => {
-    console.log(id)
-  }
+  const handelDelete = async (id: string) => {
+    try {
+      const res = await deleteOneSpecialty(id).unwrap();
+      // console.log(res)
+      if (res?.id) {
+        toast.success("specialty Delete successfully");
+      }
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
 
   // console.log(data)
   const columns: GridColDef[] = [
-    { field: "title", headerName: "Title", width: 300 },
+    { field: "title", headerName: "Title", width: 400 },
     {
       field: "icon",
       headerName: "Icon",
-      width: 300,
+      flex: 1,
       renderCell: ({ row }) => {
-        return <Box>
-          <Image src={row.icon} width={20} height={20} alt="Icon"/>
-        </Box>
+        return (
+          <Box>
+            <Image src={row.icon} width={30} height={30} alt="Icon" />
+          </Box>
+        );
       },
     },
     {
       field: "action",
       headerName: "Action",
-      width: 400,
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
       renderCell: ({ row }) => {
-        return <IconButton onClick={()=>handelDelete(row.id)} aria-label="delete">
-        <DeleteIcon />
-      </IconButton>
+        return (
+          <IconButton onClick={() => handelDelete(row.id)} aria-label="delete">
+            <DeleteIcon />
+          </IconButton>
+        );
       },
     },
   ];
