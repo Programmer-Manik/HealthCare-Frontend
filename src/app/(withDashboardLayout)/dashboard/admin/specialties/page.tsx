@@ -9,7 +9,17 @@ const SpecialtiesPage = () => {
   const [isModalOpen, setISModalOpen] = useState(false);
   const { data, isLoading } = useGetAllSpecialtyQuery({});
   // console.log(data)
-  const columns: GridColDef[] = [{ field: "title", headerName: "Title", width: 70 }];
+  const columns: GridColDef[] = [
+    { field: "title", headerName: "Title", width: 100 },
+    {
+      field: "icon",
+      headerName: "Icon",
+      width: 100,
+      renderCell: ({ row }) => {
+        return console.log(row)
+      },
+    },
+  ];
 
   return (
     <Box>
@@ -18,19 +28,13 @@ const SpecialtiesPage = () => {
         <SpecialtyModal open={isModalOpen} setOpen={setISModalOpen} />
         <TextField size="small" placeholder="Search Specialties" />
       </Stack>
-      <Box>
-        <DataGrid
-          rows={data}
-          columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: { page: 0, pageSize: 5 },
-            },
-          }}
-          pageSizeOptions={[5, 10]}
-          checkboxSelection
-        />
-      </Box>
+      {!isLoading ? (
+        <Box>
+          <DataGrid rows={data} columns={columns} />
+        </Box>
+      ) : (
+        <h1>Loading</h1>
+      )}
     </Box>
   );
 };
