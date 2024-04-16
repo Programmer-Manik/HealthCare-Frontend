@@ -36,7 +36,18 @@ const DoctorsPage = () => {
   const meta = data?.meta;
   // console.log(doctors);
 
-  
+  const handleDelete = async (id: string) => {
+    // console.log(id);
+    try {
+      const res = await deleteDoctor(id).unwrap();
+      // console.log(res);
+      if (res?.id) {
+        toast.success("Doctor deleted successfully!!!");
+      }
+    } catch (err: any) {
+      console.error(err.message);
+    }
+  };
 
   const columns: GridColDef[] = [
     { field: "name", headerName: "Name", flex: 1 },
@@ -83,7 +94,7 @@ const DoctorsPage = () => {
       </Stack>
       {!isLoading ? (
         <Box my={2}>
-          <DataGrid rows={doctors} columns={columns} />
+          <DataGrid rows={doctors ?? []} columns={columns} />
         </Box>
       ) : (
         <Typography>Loading.....</Typography>
