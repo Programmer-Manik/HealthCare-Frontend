@@ -51,7 +51,7 @@ const SpecialtiesPage = () => {
       renderCell: ({ row }) => {
         return (
           <IconButton onClick={() => handleDelete(row.id)} aria-label="delete">
-            <DeleteIcon />
+            <DeleteIcon  />
           </IconButton>
         );
       },
