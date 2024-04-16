@@ -17,7 +17,7 @@ type TProps = {
 const DoctorModal = ({ open, setOpen }: TProps) => {
   const [createDoctor] = useCreateDoctorMutation();
   const handleFormSubmit = async (values: FieldValues) => {
-    // console.log(values);
+   //  console.log(values);
     values.doctor.experience = Number(values.doctor.experience);
     values.doctor.apointmentFee = Number(values.doctor.apointmentFee);
     const data = modifyPayload(values);
