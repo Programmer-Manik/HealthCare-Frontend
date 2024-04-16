@@ -1,5 +1,5 @@
 "use client";
-import { Box, Button, IconButton, Stack, TextField } from "@mui/material";
+import { Box, Button, IconButton, Stack, TextField, Typography } from "@mui/material";
 import DoctorModal from "./components/DoctorModal";
 import { useState } from "react";
 import {
@@ -97,7 +97,7 @@ const DoctorsPage = () => {
           <DataGrid rows={doctors} columns={columns} />
         </Box>
       ) : (
-        <h1>Loading.....</h1>
+        <Typography>Loading.....</Typography>
       )}
     </Box>
   );
