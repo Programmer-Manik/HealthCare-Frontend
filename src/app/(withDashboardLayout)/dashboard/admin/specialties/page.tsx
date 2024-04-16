@@ -1,34 +1,33 @@
 "use client";
 import { Box, Button, IconButton, Stack, TextField } from "@mui/material";
 import { useState } from "react";
-import SpecialtyModal from "./components/SpecialistModal";
 import {
-  useDeleteOneSpecialtyMutation,
-  useGetAllSpecialtyQuery,
+  useDeleteSpecialtyMutation,
+  useGetAllSpecialtiesQuery,
 } from "@/redux/api/specialtiesApi";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Image from "next/image";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { toast } from "sonner";
+import SpecialtyModal from "./components/SpecialistModal";
 
 const SpecialtiesPage = () => {
-  const [isModalOpen, setISModalOpen] = useState(false);
-  const { data, isLoading } = useGetAllSpecialtyQuery({});
-  const [deleteOneSpecialty] = useDeleteOneSpecialtyMutation();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const { data, isLoading } = useGetAllSpecialtiesQuery({});
+  const [deleteSpecialty] = useDeleteSpecialtyMutation();
 
-  const handelDelete = async (id: string) => {
+  const handleDelete = async (id: string) => {
     try {
-      const res = await deleteOneSpecialty(id).unwrap();
-      // console.log(res)
+      const res = await deleteSpecialty(id).unwrap();
       if (res?.id) {
-        toast.success("specialty Delete successfully");
+        toast.success("Specialty deleted successfully!!!");
       }
     } catch (err: any) {
-      console.log(err);
+      console.error(err.message);
     }
   };
 
-  // console.log(data)
+  // console.log(data);
   const columns: GridColDef[] = [
     { field: "title", headerName: "Title", width: 400 },
     {
@@ -38,7 +37,7 @@ const SpecialtiesPage = () => {
       renderCell: ({ row }) => {
         return (
           <Box>
-            <Image src={row.icon} width={30} height={30} alt="Icon" />
+            <Image src={row.icon} width={30} height={30} alt="icon" />
           </Box>
         );
       },
@@ -51,7 +50,7 @@ const SpecialtiesPage = () => {
       align: "center",
       renderCell: ({ row }) => {
         return (
-          <IconButton onClick={() => handelDelete(row.id)} aria-label="delete">
+          <IconButton onClick={() => handleDelete(row.id)} aria-label="delete">
             <DeleteIcon />
           </IconButton>
         );
@@ -62,16 +61,16 @@ const SpecialtiesPage = () => {
   return (
     <Box>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <Button onClick={() => setISModalOpen(true)}>Create Specialty</Button>
-        <SpecialtyModal open={isModalOpen} setOpen={setISModalOpen} />
-        <TextField size="small" placeholder="Search Specialties" />
+        <Button onClick={() => setIsModalOpen(true)}>Create Specialty</Button>
+        <SpecialtyModal open={isModalOpen} setOpen={setIsModalOpen} />
+        <TextField size="small" placeholder="Search Specialist" />
       </Stack>
       {!isLoading ? (
         <Box my={2}>
-          <DataGrid rows={data} columns={columns} />
+          <DataGrid rows={data} columns={columns} hideFooter={true} />
         </Box>
       ) : (
-        <h1>Loading</h1>
+        <h1>Loading.....</h1>
       )}
     </Box>
   );
