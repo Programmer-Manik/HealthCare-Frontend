@@ -13,7 +13,7 @@ import { Avatar, Badge, Stack } from "@mui/material";
 import AccountMenu from "../AccountMenu/AccountMenu";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import { useGetSingleUserQuery } from "@/redux/api/userApi";
-import Sidebar from "../Sidebar/Sidebar";
+import SideBar from "../Sidebar/Sidebar";
 
 const drawerWidth = 240;
 
@@ -90,7 +90,7 @@ export default function DashboardDrawer({
                 component="div"
                 sx={{ color: "primary.main" }}
               >
-                Welcome to PH Health Care!
+                Welcome to MH Health Care!
               </Typography>
             </Box>
             <Stack direction="row" gap={3}>
@@ -127,7 +127,7 @@ export default function DashboardDrawer({
             },
           }}
         >
-          <Sidebar />
+          <SideBar />
         </Drawer>
         <Drawer
           variant="permanent"
@@ -140,7 +140,7 @@ export default function DashboardDrawer({
           }}
           open
         >
-          <Sidebar />
+          <SideBar />
         </Drawer>
       </Box>
       <Box

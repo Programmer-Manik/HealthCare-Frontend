@@ -7,7 +7,7 @@ import { UserRole } from "@/types";
 import SidebarItem from "./sidebarItem";
 import { getUserInfo } from "@/services/auth.services";
 import { useEffect, useState } from "react";
-const Sidebar = () => {
+const SideBar = () => {
   const [userRole, setUserRole] = useState("");
   useEffect(() => {
     const { role } = getUserInfo() as any;
@@ -41,4 +41,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default SideBar;
