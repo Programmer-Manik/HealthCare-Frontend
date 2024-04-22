@@ -55,14 +55,14 @@ const Specialist = async () => {
               }}
             >
               <Image
-                src={specialty.icon}
+                src={specialty?.icon}
                 width={100}
                 height={100}
                 alt="specialty icon"
               />
               <Box>
                 <Typography component="p" fontWeight={600} fontSize={18} mt={2}>
-                  {specialty.title}
+                  {specialty?.title}
                 </Typography>
               </Box>
             </Box>

@@ -40,11 +40,11 @@ const TopRatedDoctors = async () => {
       <Container sx={{ margin: "30px auto" }}>
         <Grid container spacing={2}>
           {doctors.map((doctor: any) => (
-            <Grid item key={doctor.id} md={4}>
+            <Grid item key={doctor?.id} md={4}>
               <Card>
                 <Box>
                   <Image
-                    src={doctor.profilePhoto}
+                    src={doctor?.profilePhoto}
                     alt="doctor"
                     width={500}
                     height={100}
@@ -52,13 +52,13 @@ const TopRatedDoctors = async () => {
                 </Box>
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    {doctor.name}
+                    {doctor?.name}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {doctor.qualification}, {doctor.designation}
+                    {doctor.qualification}, {doctor?.designation}
                   </Typography>
                   <Typography variant="body2" color="text.secondary" mt={1}>
-                    <LocationOnIcon /> {doctor.address}
+                    <LocationOnIcon /> {doctor?.address}
                   </Typography>
                 </CardContent>
                 <CardActions
