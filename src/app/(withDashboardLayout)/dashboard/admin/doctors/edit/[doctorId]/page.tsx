@@ -5,7 +5,12 @@ import MHSelectField from "@/components/Forms/MHSelectField";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { Gender } from "@/types";
 import { FieldValues } from "react-hook-form";
-import { useGetDoctorQuery } from "@/redux/api/doctorApi";
+import {
+  useGetDoctorQuery,
+  useUpdateDoctorMutation,
+} from "@/redux/api/doctorApi";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 type TParams = {
   params: {
@@ -14,30 +19,40 @@ type TParams = {
 };
 
 const DoctorUpdatePage = ({ params }: TParams) => {
-  //   console.log(params?.doctorId)
-   const {data, isLoading} = useGetDoctorQuery(params?.doctorId)
-   // console.log(data)
+  const router = useRouter();
+   const id = params?.doctorId
+  const { data, isLoading } = useGetDoctorQuery(params?.doctorId);
+  const [updateDoctor] = useUpdateDoctorMutation();
+  // console.log(data)
   const handleFormSubmit = async (values: FieldValues) => {
-   //  console.log(values)
+     values.experience = Number(values.experience);
+     values.apointmentFee = Number(values.apointmentFee);
+     values.id = id;
+    // console.log({ id: values.id, body: values });
+
     try {
+       const res = await updateDoctor({ id: values.id, body: values }).unwrap();
+      if (res?.id) {
+        toast.success("Doctor Updated Successfully!!!");
+        router.push("/dashboard/admin/doctors");
+      }
     } catch (err: any) {
       console.error(err);
     }
   };
 
   const defaultValues = {
-    email: "",
-    name: "",
-    contactNumber: "",
-    address: "",
-    registrationNumber: "",
-    gender: "",
-    experience: 0,
-    apointmentFee: 0,
-    qualification: "",
-    currentWorkingPlace: "",
-    designation: "",
-    profilePhoto: "",
+    email: data?.email || "",
+    name: data?.name || "",
+    contactNumber: data?.contactNumber || "",
+    address: data?.address || "",
+    registrationNumber: data?.registrationNumber || "",
+    gender: data?.gender || "",
+    experience: data?.experience || 0,
+    apointmentFee: data?.apointmentFee || 0,
+    qualification: data?.qualification || "",
+    currentWorkingPlace: data?.currentWorkingPlace || "",
+    designation: data?.designation || "",
   };
 
   return (
