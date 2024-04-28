@@ -8,6 +8,9 @@ import { useGetAllSchedulesQuery } from "@/redux/api/scheduleApi";
 import MultipleSelectFieldChip from "./MultipleSelectFieldChip";
 import { Stack } from "@mui/material";
 
+
+
+
 type TProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,7 +22,7 @@ const DoctorScheduleModal = ({ open, setOpen }: TProps) => {
   );
 
   const [selectedScheduleIds, setSelectedScheduleIds] = useState<string[]>([]);
-  
+
   const query: Record<string, any> = {};
   if (!!selectedDate) {
     query["startDate"] = dayjs(selectedDate)
