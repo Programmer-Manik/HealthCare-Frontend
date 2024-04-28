@@ -1,35 +1,58 @@
 import MHModal from "@/components/Shared/MHModal/MHModal";
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import dayjs, { Dayjs } from 'dayjs';
-import { useState } from 'react';
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs, { Dayjs } from "dayjs";
+import { useState } from "react";
+import { useGetAllSchedulesQuery } from "@/redux/api/scheduleApi";
+import MultipleSelectFieldChip from "./MultipleSelectFieldChip";
+import { Stack } from "@mui/material";
 
 type TProps = {
-   open: boolean;
-   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const DoctorScheduleModal = ({ open, setOpen }: TProps) => {
+  const [selectedDate, setSelectedDate] = useState(
+    dayjs(new Date()).toISOString()
+  );
 
-   const [selectedDate, setSelectedDate] = useState(
-      dayjs(new Date()).toISOString()
-   );
-
+  const [selectedScheduleIds, setSelectedScheduleIds] = useState<string[]>([]);
+  
+  const query: Record<string, any> = {};
+  if (!!selectedDate) {
+    query["startDate"] = dayjs(selectedDate)
+      .hour(0)
+      .minute(0)
+      .millisecond(0)
+      .toISOString();
+    query["endDate"] = dayjs(selectedDate)
+      .hour(23)
+      .minute(59)
+      .millisecond(999)
+      .toISOString();
+  }
+  const { data, isLoading } = useGetAllSchedulesQuery(query);
+  // console.log(data);
+  const schedules = data?.schedules;
+  // console.log(schedules)
   return (
-   <MHModal open={open} setOpen={setOpen} title='Create Doctor Schedule'>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-         <DatePicker
-             label='Controlled picker'
-             value={dayjs(selectedDate)}
-             onChange={(newValue) =>
-                setSelectedDate(dayjs(newValue).toISOString())
-             }
-             sx={{ width: '100%' }}
-         />
-      </LocalizationProvider>
-      
-</MHModal>
+    <MHModal open={open} setOpen={setOpen} title="Create Doctor Schedule">
+      <Stack direction={"column"} gap={2}>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            label="Controlled picker"
+            value={dayjs(selectedDate)}
+            onChange={(newValue) =>
+              setSelectedDate(dayjs(newValue).toISOString())
+            }
+            sx={{ width: "100%" }}
+          />
+        </LocalizationProvider>
+        <MultipleSelectFieldChip schedules={schedules} />
+      </Stack>
+    </MHModal>
   );
 };
 
