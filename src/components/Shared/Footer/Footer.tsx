@@ -38,7 +38,7 @@ const Footer = () => {
           py={3}
         >
           <Typography component="p" color="white">
-            &copy;2024 Ph HealthCare. All Rights Reserved.
+            &copy;2024 Mh HealthCare. All Rights Reserved.
           </Typography>
           <Typography
             variant="h4"
@@ -47,7 +47,7 @@ const Footer = () => {
             fontWeight={600}
             color="white"
           >
-            P
+            M
             <Box component="span" color="primary.main">
               H
             </Box>{" "}

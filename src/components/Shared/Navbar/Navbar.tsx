@@ -18,7 +18,7 @@ const Navbar = () => {
         alignItems="center"
       >
         <Typography variant="h4" component={Link} href="/" fontWeight={600}>
-          P
+          M
           <Box component="span" color="primary.main">
             H
           </Box>{" "}
