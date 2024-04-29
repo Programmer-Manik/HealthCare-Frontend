@@ -7,7 +7,8 @@ import { useState } from "react";
 import { useGetAllSchedulesQuery } from "@/redux/api/scheduleApi";
 import MultipleSelectFieldChip from "./MultipleSelectFieldChip";
 import { Stack } from "@mui/material";
-
+import LoadingButton from '@mui/lab/LoadingButton';
+import { useCreateDoctorScheduleMutation } from "@/redux/api/doctorScheduleApi";
 
 
 
@@ -36,10 +37,24 @@ const DoctorScheduleModal = ({ open, setOpen }: TProps) => {
       .millisecond(999)
       .toISOString();
   }
-  const { data, isLoading } = useGetAllSchedulesQuery(query);
-  // console.log(data);
+  const { data } = useGetAllSchedulesQuery(query);
   const schedules = data?.schedules;
-  // console.log(schedules)
+
+  const [createDoctorSchedule, { isLoading }] =
+     useCreateDoctorScheduleMutation();
+  
+
+  const onSubmit = async() => {
+    try{
+      const res = await createDoctorSchedule({
+        scheduleIds: selectedScheduleIds,
+     });
+     console.log(res);
+     setOpen(false);
+    }catch(error){
+        console.log(error)
+    }
+  }
   return (
     <MHModal open={open} setOpen={setOpen} title="Create Doctor Schedule">
       <Stack direction={"column"} gap={2}>
@@ -53,7 +68,16 @@ const DoctorScheduleModal = ({ open, setOpen }: TProps) => {
             sx={{ width: "100%" }}
           />
         </LocalizationProvider>
-        <MultipleSelectFieldChip schedules={schedules} />
+       <MultipleSelectFieldChip schedules={schedules} selectedScheduleIds={selectedScheduleIds}  setSelectedScheduleIds={ setSelectedScheduleIds}/>
+       <LoadingButton
+          size="small"
+          onClick={onSubmit}
+          loading={true}
+          loadingIndicator="Submitting..."
+          variant="contained"
+        >
+          <span>Fetch data</span>
+        </LoadingButton>
       </Stack>
     </MHModal>
   );

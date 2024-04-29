@@ -1,13 +1,12 @@
-
-import * as React from 'react';
-import { Theme, useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import Chip from '@mui/material/Chip';
+import * as React from "react";
+import { Theme, useTheme } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Chip from "@mui/material/Chip";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -21,27 +20,27 @@ const MenuProps = {
 };
 
 export function getTimeIn12HourFormat(dateTimeString: string): string {
-   const date: Date = new Date(dateTimeString);
-   const hours: number = date.getHours();
-   const minutes: number = date.getMinutes();
-   const ampm: string = hours >= 12 ? 'PM' : 'AM';
-   const formattedHours: number = hours % 12 === 0 ? 12 : hours % 12;
-   const formattedMinutes: string =
-      minutes < 10 ? '0' + minutes : minutes.toString();
-   return `${formattedHours}:${formattedMinutes} ${ampm}`;
+  const date: Date = new Date(dateTimeString);
+  const hours: number = date.getHours();
+  const minutes: number = date.getMinutes();
+  const ampm: string = hours >= 12 ? "PM" : "AM";
+  const formattedHours: number = hours % 12 === 0 ? 12 : hours % 12;
+  const formattedMinutes: string =
+    minutes < 10 ? "0" + minutes : minutes.toString();
+  return `${formattedHours}:${formattedMinutes} ${ampm}`;
 }
 
 const names = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
+  "Oliver Hansen",
+  "Van Henry",
+  "April Tucker",
+  "Ralph Hubbard",
+  "Omar Alexander",
+  "Carlos Abbott",
+  "Miriam Wagner",
+  "Bradley Wilkerson",
+  "Virginia Andrews",
+  "Kelly Snyder",
 ];
 
 function getStyles(name: string, personName: readonly string[], theme: Theme) {
@@ -53,17 +52,23 @@ function getStyles(name: string, personName: readonly string[], theme: Theme) {
   };
 }
 
-export default function MultipleSelectFieldChip({schedules}:any) {
+export default function MultipleSelectFieldChip({
+  schedules,
+  setSelectedScheduleIds,
+  selectedScheduleIds,
+}: any) {
   const theme = useTheme();
-  const [personName, setPersonName] = React.useState<string[]>([]);
+  // const [personName, setPersonName] = React.useState<string[]>([]);
 
-  const handleChange = (event: SelectChangeEvent<typeof personName>) => {
+  const handleChange = (
+    event: SelectChangeEvent<typeof selectedScheduleIds>
+  ) => {
     const {
       target: { value },
     } = event;
-    setPersonName(
+    setSelectedScheduleIds(
       // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
+      typeof value === "string" ? value.split(",") : value
     );
   };
 
@@ -75,46 +80,41 @@ export default function MultipleSelectFieldChip({schedules}:any) {
           labelId="demo-multiple-chip-label"
           id="demo-multiple-chip"
           multiple
-          value={personName}
+          value={selectedScheduleIds}
           onChange={handleChange}
           input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
           renderValue={(selected) => {
             return (
-               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                  {selected.map((value: any) => {
-                     const selectedSchedule = schedules.find(
-                        (schedule: any) => schedule.id === value
-                     );
+              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                {selected.map((value: any) => {
+                  const selectedSchedule = schedules.find(
+                    (schedule: any) => schedule.id === value
+                  );
 
-                     if (!selectedSchedule) return null;
+                  if (!selectedSchedule) return null;
 
-                     const formattedTimeSlot = `${getTimeIn12HourFormat(
-                        selectedSchedule.startDate
-                     )} - ${getTimeIn12HourFormat(
-                        selectedSchedule.endDate
-                     )}`;
-
-                     return (
-                        <Chip key={value} label={formattedTimeSlot} />
-                     );
-                  })}
-               </Box>
+                  const formattedTimeSlot = `${getTimeIn12HourFormat(
+                    selectedSchedule.startDate
+                  )} - ${getTimeIn12HourFormat(selectedSchedule.endDate)}`;
+                  return <Chip key={value} label={formattedTimeSlot} />;
+                })}
+              </Box>
             );
-         }}
+          }}
           MenuProps={MenuProps}
         >
           {schedules.map((schedule: any) => (
-                  <MenuItem
-                     key={schedule.id}
-                     value={schedule.id}
-                     style={getStyles(schedule.id, personName , theme)}
-                  >
-                     {/* {schedule.startDate} */}
-                     {`${getTimeIn12HourFormat(
-                        schedule.startDate
-                     )} - ${getTimeIn12HourFormat(schedule.endDate)}`}
-                  </MenuItem>
-               ))}
+            <MenuItem
+              key={schedule.id}
+              value={schedule.id}
+              style={getStyles(schedule.id, selectedScheduleIds, theme)}
+            >
+              {/* {schedule.startDate} */}
+              {`${getTimeIn12HourFormat(
+                schedule.startDate
+              )} - ${getTimeIn12HourFormat(schedule.endDate)}`}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
     </div>
