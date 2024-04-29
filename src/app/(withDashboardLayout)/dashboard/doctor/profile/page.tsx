@@ -3,14 +3,15 @@ import {
   useGetMYProfileQuery,
   useUpdateMYProfileMutation,
 } from "@/redux/api/myProfile";
-import { Box, Container, Stack, Typography, styled } from "@mui/material";
+import { Box, Button, Container, Stack, Typography, styled } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import Image from "next/image";
 import DoctorInformation from "./components/DoctorInformations";
 import AutoFileUploader from "@/components/Forms/AutoFileUploader";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useState } from "react";
-
+import ProfileUpdateModal from "./components/ProfileUpdateModal";
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
 const Profile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -29,6 +30,12 @@ const Profile = () => {
     <p>Loading...</p>;
   }
   return (
+    <>
+    <ProfileUpdateModal
+       open={isModalOpen}
+       setOpen={setIsModalOpen}
+       id={data?.id}
+    />
     <Container>
       <Grid container spacing={2}>
         <Grid xs={12} md={4}>
@@ -58,12 +65,20 @@ const Profile = () => {
               variant="text"
             />
           )}
+           <Button
+                     fullWidth
+                     endIcon={<ModeEditIcon />}
+                     onClick={() => setIsModalOpen(true)}
+                  >
+                     Edit Profile
+                  </Button>
         </Grid>
         <Grid xs={12} md={8}>
           <DoctorInformation data={data} />
         </Grid>
       </Grid>
     </Container>
+    </>
   );
 };
 
