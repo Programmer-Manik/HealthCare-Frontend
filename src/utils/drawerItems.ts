@@ -9,9 +9,15 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ReviewsIcon from "@mui/icons-material/Reviews";
 import AirlineSeatIndividualSuiteIcon from "@mui/icons-material/AirlineSeatIndividualSuite";
 import TryIcon from "@mui/icons-material/Try";
-
+import PersonIcon from '@mui/icons-material/Person';
 export const drawerItems = (role: UserRole): DrawerItem[] => {
   const roleMenus: DrawerItem[] = [];
+
+  const defaultMenu = [{
+    title: "Profile",
+    path: `${role}/profile`,
+    icon: PersonIcon,
+  }]
 
   switch (role) {
     case USER_ROLE.SUPER_ADMIN:
@@ -80,7 +86,7 @@ export const drawerItems = (role: UserRole): DrawerItem[] => {
           title: "Appointments",
           path: `${role}/appointment`,
           icon: CalendarMonthIcon,
-        }
+        },
       );
       break;
 
@@ -108,5 +114,5 @@ export const drawerItems = (role: UserRole): DrawerItem[] => {
       break;
   }
 
-  return [...roleMenus];
+  return [...roleMenus, ...defaultMenu];
 };

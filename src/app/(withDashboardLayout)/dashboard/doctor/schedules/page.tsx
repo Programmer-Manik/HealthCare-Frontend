@@ -14,12 +14,12 @@ const DoctorSchedulesPage = () => {
 
    const [allSchedule, setAllSchedule] = useState<any>([]);
    const { data, isLoading } = useGetAllDoctorSchedulesQuery({});
-   console.log(data);
+   // console.log(data);
 
    const schedules = data?.doctorSchedules;
    const meta = data?.meta;
 
-   console.log(schedules);
+   // console.log(schedules);
 
    useEffect(() => {
       const updateData = schedules?.map(
