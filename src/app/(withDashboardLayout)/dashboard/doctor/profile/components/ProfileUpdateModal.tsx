@@ -91,6 +91,8 @@ const ProfileUpdateModal = ({ open, setOpen, id }: TProps) => {
          })
       );
 
+      // console.log(updatedValues)
+
       updatedValues.specialties = specialties;
 
       try {
