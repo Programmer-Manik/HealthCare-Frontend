@@ -93,7 +93,26 @@ const DoctorSchedulesPage = () => {
                      rows={allSchedule ?? []}
                      columns={columns}
                      hideFooterPagination
-                    
+                     slots={{
+                        footer: () => {
+                           return (
+                              <Box
+                                 sx={{
+                                    my:1,
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                 }}
+                              >
+                                 <Pagination
+                                    color='primary'
+                                    count={pageCount}
+                                    page={page}
+                                    onChange={handleChange}
+                                 />
+                              </Box>
+                           );
+                        },
+                     }}
                   />
                </Box>
             ) : (
