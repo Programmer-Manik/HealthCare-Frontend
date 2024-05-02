@@ -48,6 +48,7 @@ export default function AccountMenu() {
 
   const handleClose = () => {
     setAnchorEl(null);
+    // router.push(`${role}/profile`)
   };
   const handleLogout = () => {
     setAnchorEl(null);
