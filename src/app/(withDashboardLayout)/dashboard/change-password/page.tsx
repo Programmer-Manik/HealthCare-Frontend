@@ -1,17 +1,15 @@
 'use client';
-
-
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button, Grid, Stack, Typography } from '@mui/material';
 import { FieldValues } from 'react-hook-form';
 import { z } from 'zod';
 import KeyIcon from '@mui/icons-material/Key';
+import { useChangePasswordMutation } from '@/redux/api/authApi';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { logoutUser } from '@/services/actions/logoutUser';
-import MHForm from '@/components/Forms/MHForm';
 import MHInput from '@/components/Forms/MHInput';
-import { useChangePasswordMutation } from '@/redux/api/authApi';
+import MHForm from '@/components/Forms/MHForm';
 
 const validationSchema = z.object({
    oldPassword: z.string().min(6, 'Must be at least 6 characters long'),
