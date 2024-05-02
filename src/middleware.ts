@@ -58,5 +58,5 @@ export function middleware(request: NextRequest) {
  
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: '/dashboard/:page*',
+  matcher: ['/login',"/register",'/dashboard/:page*',]
 }
