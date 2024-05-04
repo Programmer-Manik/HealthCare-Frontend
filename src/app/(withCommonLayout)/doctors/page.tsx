@@ -1,5 +1,5 @@
 
-import DashedLine from '@/components/UI/Doctor/Dashedline';
+import DashedLine from '@/components/UI/Doctor/DashedLine';
 import DoctorCard from '@/components/UI/Doctor/DoctorCard';
 import ScrollCategory from '@/components/UI/Doctor/ScrollCategory';
 import { Doctor } from '@/types/doctor';
