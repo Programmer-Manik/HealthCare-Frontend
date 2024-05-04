@@ -36,20 +36,7 @@ const ResetPassword = () => {
       console.log(values);
       const updatedData = { ...values, id };
 
-      try {
-         const res = await resetPassword(updatedData);
-
-         if ('data' in res && res.data.status === 200) {
-            toast.success('Password Reset Successful');
-            localStorage.removeItem(authKey);
-            deleteCookies([authKey, 'refreshToken']);
-            router.push('/login');
-         } else {
-            throw new Error('Something Went Wrong, Try Again');
-         }
-      } catch (error) {
-         toast.success('Something Went Wrong, Try Again');
-      }
+     
    };
    return (
       <Box
