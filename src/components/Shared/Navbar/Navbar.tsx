@@ -1,10 +1,12 @@
 "use client";
 
+import { getUserInfo } from "@/services/auth.services";
 import { Box, Container, Stack, Typography } from "@mui/material";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 
 const Navbar = () => {
+  const { userId } = getUserInfo() as any;
   const AuthButton = dynamic(
     () => import("@/components/UI/AuthButton/AuthButton"),
     { ssr: false }
@@ -33,6 +35,11 @@ const Navbar = () => {
           <Typography>Medicine</Typography>
           <Typography>Diagnostics</Typography>
           <Typography>NGOs</Typography>
+          {userId && (
+            <Typography component={Link} href="/dashboard">
+              Dashboard
+            </Typography>
+          )}
         </Stack>
 
         <AuthButton />
