@@ -14,7 +14,7 @@ const Navbar = () => {
   const router = useRouter();
 
   const handleLogOut = () => {
-     logoutUser(router);
+    logoutUser(router);
   };
 
   return (
@@ -37,26 +37,30 @@ const Navbar = () => {
           <Typography component={Link} href="/consultation">
             Consultation
           </Typography>
+
           <Typography>Health Plans</Typography>
           <Typography>Medicine</Typography>
           <Typography>Diagnostics</Typography>
-          <Typography>NGOs</Typography>
+          <Typography component={Link} href="/doctors">
+            Doctors
+          </Typography>
+
           {userInfo.userId ? (
             <Typography component={Link} href="/dashboard">
               Dashboard
             </Typography>
-          ):null}
+          ) : null}
         </Stack>
 
         {userInfo?.userId ? (
-            <Button color='error' onClick={handleLogOut}>
-               Logout
-            </Button>
-         ) : (
-            <Button component={Link} href='/login'>
-               Login
-            </Button>
-         )}
+          <Button color="error" onClick={handleLogOut}>
+            Logout
+          </Button>
+        ) : (
+          <Button component={Link} href="/login">
+            Login
+          </Button>
+        )}
       </Stack>
     </Container>
   );
