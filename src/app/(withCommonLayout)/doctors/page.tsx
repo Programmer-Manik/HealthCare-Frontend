@@ -1,6 +1,8 @@
 
 import { Box, Container } from '@mui/material';
+import { Doctor } from '@/types/doctor';
 import React from 'react';
+import DashedLine from '@/components/UI/Doctor/Dashedline';
 
 
 const Doctors = async () => {
@@ -11,13 +13,20 @@ const Doctors = async () => {
 
    return (
       <Container>
+ <Container>
+         <DashedLine />
 
-         <Box sx={{
-            my:4,
-            borderColor:'secondary.light',
-            borderBottom:'2px dashed'
-         }}/>
-         <Box sx={{ mt: 2, p: 3, bgcolor: 'secondary.light' }}></Box>
+
+         <Box sx={{ mt: 2, p: 3, bgcolor: 'secondary.light' }}>
+            {data?.map((doctor: Doctor, index: number) => (
+               <Box key={doctor.id}>
+                  <DoctorCard doctor={doctor} />
+
+                  {index === data.length - 1 ? null : <DashedLine />}
+               </Box>
+            ))}
+         </Box>
+      </Container>
       </Container>
    );
 };
