@@ -3,6 +3,7 @@ import { Box, Container } from '@mui/material';
 import { Doctor } from '@/types/doctor';
 import React from 'react';
 import DashedLine from '@/components/UI/Doctor/Dashedline';
+import DoctorCard from '@/components/UI/Doctor/DoctorCard';
 
 
 const Doctors = async () => {
