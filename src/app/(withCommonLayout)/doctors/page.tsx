@@ -1,4 +1,3 @@
-
 import DashedLine from '@/components/UI/Doctor/DashedLine';
 import DoctorCard from '@/components/UI/Doctor/DoctorCard';
 import ScrollCategory from '@/components/UI/Doctor/ScrollCategory';
@@ -39,6 +38,10 @@ const Doctors = async ({ searchParams }: PropType) => {
                   {index === data.length - 1 ? null : <DashedLine />}
                </Box>
             ))}
+
+            {data.length === 0 && (
+               <Box>No Doctor Found With This Specialty</Box>
+            )}
          </Box>
       </Container>
    );
