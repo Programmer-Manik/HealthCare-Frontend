@@ -1,4 +1,5 @@
-import VideoCall from '@/components/UI/VideoCall/VideoCall';
+
+import VideoCall from '@/components/UI/VideoCall/videoCall';
 import React from 'react';
 
 const VideoCalling = ({
