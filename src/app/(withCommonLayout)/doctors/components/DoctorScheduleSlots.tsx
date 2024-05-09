@@ -53,7 +53,7 @@ const DoctorScheduleSlots = ({ id }: { id: string }) => {
   );
 
   const [createAppointment] = useCreateAppointmentMutation();
- 
+  const [initialPayment] = useInitialPaymentMutation();
 
   const handleBookAppointment = async () => {
     try {
@@ -63,7 +63,13 @@ const DoctorScheduleSlots = ({ id }: { id: string }) => {
           scheduleId,
         }).unwrap();
 
-        
+        if (res.id) {
+          const response = await initialPayment(res.id).unwrap();
+
+          if (response.paymentUrl) {
+            router.push(response.paymentUrl);
+          }
+        }
       }
     } catch (error) {
       console.log(error);
