@@ -48,12 +48,7 @@ const VideoCall = ({ videoCallingId }: { videoCallingId: string }) => {
          >
             Start Call
          </Button>
-         <Image
-            src='https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExb25jMWk1b3VxYWtjYTdpZXlnNGcwZHVqcGppejM3bDUybTl3aXQ0ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/PnHX3RAVHsjHXTO4qv/giphy.gif'
-            width={500}
-            height={500}
-            alt='video call gif'
-         />
+       
       </Stack>
    );
 };
